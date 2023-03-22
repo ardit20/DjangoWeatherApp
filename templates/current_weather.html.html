@@ -1,0 +1,30 @@
+<html>
+<head>
+    <title>Weather App</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Weather App</h1>
+    <input type="text" id="city" placeholder="Enter city name">
+    <button id="search">Search</button>
+    <div id="result"></div>
+    <script>
+        $(document).ready(function() {
+            $('#search').click(function() {
+                var city = $('#city').val();
+                $.ajax({
+                    url: '/weather/?city=' + city,
+                    success: function(response) {
+                        $('#result').html(`
+                            <h2>${response.city}</h2>
+                            <p>${response.description}</p>
+                            <p>${response.temperature} &#8451;</p>
+                            <img src="https://openweathermap.org/img/w/${response.icon}.png">
+                        `);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
